@@ -1,0 +1,90 @@
+@startuml TPTaskDiagrama
+
+title Task-App
+
+class Tarea {
+    - id: number
+    - titulo: string
+    - descripcion: string
+    - fechaVencimiento: Date
+    - prioridad: string
+    - categoria: string
+    - etiqueta: string
+    - porcentaje: number
+    - estado: string
+
+    + getters()
+    + setters()
+}
+
+enum PRIORIDAD {
+    BAJA
+    MEDIA
+    ALTA 
+}
+
+enum ESTADO {
+    INCOMPLETA
+    COMPLETA
+}
+
+class NodeTarea {
+    - _value: Tarea
+    - _next: NodeTarea
+
+    + getValue(): Tarea 
+    + getNext(): NodeTarea
+    + setNext(): NodeTarea
+}
+
+class ListaTareas {
+    - head: NodeTarea
+
+    + push(v: Tarea): NodeTarea
+    + pop(): Tarea
+    + insertFirst(v: Tarea): NodeTarea
+    + removeFirst(): Tarea
+    + insertOrdered(v: Tarea): NodeTarea
+    + insertUnique(v: Tarea): NodeTarea
+    + delete(v: Tarea): Tarea
+    + search(v: Tarea): NodeTarea
+    + sort(): void 
+    + clear(): void
+
+}
+
+class MainApp {
+    - tareas: ListaTareas
+    - tareasCompletas: ListaTareas
+
+    + addTarea(titulo: string, desc: string, fVenc: date, prio: string, cat: string, tag: string): void
+    + removeTarea(v: Tarea): void
+    + editTarea(campo: 'titulo' | 'descripcion' | 'fechaVencimiento' | 'prioridad' | 'categoria' | 'etiqueta' | 'porcentaje', v: string | number | Date): void
+    + getTareasIncompletas(): ListaTareas
+    + getTareasCompletas(): ListaTareas
+    + searchTarea(campo: 'titulo' | 'fechaVencimiento', v: string | Date): Tarea
+    + sortTareas(campo: 'titulo' | 'fechaVencimiento' | 'prioridad', v: string | Date): void
+}
+
+interface SaveData {
+    + save(): void
+}
+
+class SaveDataJSON implements SaveData {
+    + save(): void
+}
+
+interface LoadData {
+    + load(): void
+}
+
+class LoadDataJSON implements LoadData {
+    + load(): void
+}
+
+Tarea --* NodeTarea
+NodeTarea --* ListaTareas
+NodeTarea --* NodeTarea
+ListaTareas -r-* MainApp
+
+@enduml
