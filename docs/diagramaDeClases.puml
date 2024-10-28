@@ -50,20 +50,37 @@ class ListaTareas {
     + search(v: Tarea): NodeTarea
     + sort(): void 
     + clear(): void
-
 }
 
 class MainApp {
     - tareas: ListaTareas
     - tareasCompletas: ListaTareas
 
-    + addTarea(titulo: string, desc: string, fVenc: date, prio: string, cat: string, tag: string): void
-    + removeTarea(v: Tarea): void
-    + editTarea(campo: 'titulo' | 'descripcion' | 'fechaVencimiento' | 'prioridad' | 'categoria' | 'etiqueta' | 'porcentaje', v: string | number | Date): void
+    + addTask(title: string, desc: string, expDate: Date, prio: string, category: string, tag: string): void
+    + removeTask(v: Tarea): Tarea
     + getTareasIncompletas(): ListaTareas
     + getTareasCompletas(): ListaTareas
-    + searchTarea(campo: 'titulo' | 'fechaVencimiento', v: string | Date): Tarea
-    + sortTareas(campo: 'titulo' | 'fechaVencimiento' | 'prioridad', v: string | Date): void
+}
+
+class EditadorDeTareas {
+    + editTitle(list: ListaTareas, task: Tarea, title: string): void
+    + editDescription(list: ListaTareas, task: Tarea, desc: string): void
+    + editExpirationDate(list: ListaTareas, task: Tarea, expDate: Date): void
+    + editPriority(list: ListaTareas, task: Tarea, priority: string): void
+    + editCategory(list: ListaTareas, task: Tarea, category: string): void
+    + editTag(list: ListaTareas, task: Tarea, tag: string): void
+    + editPercentage(list: ListaTareas, task: Tarea, percentage: number): void
+}
+
+class BuscadorDeTareas {
+    + searchByTitle(title: string): Tarea
+    + searchByExpirationDate(expirationDate: Date): Tarea
+}
+
+class OrdenadorDeTareas {
+    + sortByTitle(list: ListaTareas): void
+    + sortByExpirationDate(list: ListaTareas): void
+    + sortByPriority(list: ListaTareas): void
 }
 
 interface SaveData {
@@ -83,8 +100,12 @@ class LoadDataJSON implements LoadData {
 }
 
 Tarea --* NodeTarea
-NodeTarea --* ListaTareas
 NodeTarea --* NodeTarea
+NodeTarea --* ListaTareas
 ListaTareas -r-* MainApp
+EditadorDeTareas -u-> ListaTareas
+BuscadorDeTareas -u-> ListaTareas
+OrdenadorDeTareas -l-> ListaTareas
+
 
 @enduml
