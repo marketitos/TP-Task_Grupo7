@@ -1,3 +1,6 @@
+import { ESTADO } from "../enums/estado";
+import { PRIORIDAD } from "../enums/prioridad";
+
 export default class Tarea {
     private id: number;
     private titulo: string;

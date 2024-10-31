@@ -10,13 +10,12 @@ export default class MainApp {
         this.tareasCompletas = new ListaTareas();
     }
 
-    public addTask(title: string, desc: string, expDate: Date, prio: string, category: string, tag: string): void {
-        const tarea = new Tarea(title, desc, expDate, prio, category, tag);
+    public addTask(tarea: Tarea): void {
         this.listaTareas.push(tarea);
     }
 
-    public removeTask(tarea: Tarea) {
-        this.listaTareas.delete(tarea);
+    public removeTask(tarea: Tarea): Tarea {
+        return this.listaTareas.delete(tarea);
     }
 
     public getTareasIncompletas(): ListaTareas {

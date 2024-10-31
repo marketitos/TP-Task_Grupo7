@@ -1,4 +1,4 @@
-enum PRIORIDAD {
+export enum PRIORIDAD {
     BAJA = "Baja",
     MEDIA = "Media",
     ALTA = "Alta",
