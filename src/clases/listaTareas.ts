@@ -8,6 +8,10 @@ export default class ListaTareas {
         this.head = undefined as unknown as NodeTarea;
     }
 
+    public getHead():NodeTarea{
+        return this.head
+    }
+
     public push(value: Tarea): NodeTarea {
         const node = new NodeTarea(value);
         let headAux = this.head;
