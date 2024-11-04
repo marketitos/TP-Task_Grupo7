@@ -36,7 +36,7 @@ export default class EditadorDeTareas{
 
     }
 
-    public editPriority(list:ListaTareas, task:Tarea, prio:string){
+    public editPriority(list:ListaTareas, task:Tarea, prio:number){
         let listTarea: NodeTarea;
         listTarea = list.search(task);
         

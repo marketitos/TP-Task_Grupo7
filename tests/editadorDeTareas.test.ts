@@ -16,7 +16,7 @@ describe('EditadorDeTareas TEST', () => {
     beforeEach(() => {
         listaTareas = new ListaTareas();
         Fecha = new Date("2005-01-28");
-        tarea = new Tarea("Ir al parque", "ir en bici",Fecha,"Baja", "Pasear", "Temprano");
+        tarea = new Tarea("Ir al parque", "ir en bici",Fecha,0, "Pasear", "Temprano");
         editador = new EditadorDeTareas();
         listaTareas.push(tarea);
     });
@@ -46,8 +46,8 @@ describe('EditadorDeTareas TEST', () => {
     });
 
     test('Editar prioridad de tarea existente', () => {
-        let nuevaPrio: string;
-        nuevaPrio="ALTA";
+        let nuevaPrio: number;
+        nuevaPrio=2;
         editador.editPriority(listaTareas,tarea,nuevaPrio)
         tareaEditada = listaTareas.search(tarea);
         expect(tareaEditada.value.getPriority()).toBe(nuevaPrio);
