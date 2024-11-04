@@ -8,19 +8,16 @@ export default class LoadDataJSON implements LoadData {
         let listaTareasIncompletas: ListaTareas = new ListaTareas();
         const file: CustomFileClass = new CustomFileClass();
         file.open(path.resolve("tareasIncompletas.json"), "r");
-    
-        let itLine = await file.readLine().next();
         let jsonString = "";
     
-        while (!itLine.done) {
-            const line = itLine.value; 
+        for await(const line of file.readLine()) {
             jsonString += line;
-            itLine = await file.readLine().next();
         }
-    
-        listaTareasIncompletas = JSON.parse(jsonString);
-        file.close();
         
+        file.close();
+
+        listaTareasIncompletas = JSON.parse(jsonString);
+
         return listaTareasIncompletas;
     };
 
@@ -28,19 +25,16 @@ export default class LoadDataJSON implements LoadData {
         let listaTareasCompletas: ListaTareas = new ListaTareas();
         const file: CustomFileClass = new CustomFileClass();
         file.open(path.resolve("tareasCompletas.json"), "r");
-    
-        let itLine = await file.readLine().next();
         let jsonString = "";
     
-        while (!itLine.done) {
-            const line = itLine.value; 
+        for await(const line of file.readLine()) {
             jsonString += line;
-            itLine = await file.readLine().next();
         }
-    
-        listaTareasCompletas = JSON.parse(jsonString);
-        file.close();
         
+        file.close();
+
+        listaTareasCompletas = JSON.parse(jsonString);
+
         return listaTareasCompletas;
     }
 }   
