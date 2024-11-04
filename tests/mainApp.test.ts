@@ -1,5 +1,6 @@
 import Tarea from "../src/clases/tarea";
 import ListaTareas from "../src/clases/listaTareas";
+import { PRIORIDAD } from "../src/enums/prioridad";
 import MainApp from "../src/clases/mainApp";
 
 describe('Tests de la clase mainApp', () => {    
@@ -11,7 +12,7 @@ describe('Tests de la clase mainApp', () => {
     beforeEach(() => {
         mainApp = new MainApp();
         expDate = new Date(2024, 10, 31);
-        tarea = new Tarea("Prueba", "Descripcion", expDate, "Media", "Categoria", "Tag")
+        tarea = new Tarea("Prueba", "Descripcion", expDate, PRIORIDAD.BAJA, "Categoria", "Tag")
     })
 
     test('Añadir tarea a la lista de tareas.', () => {
