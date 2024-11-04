@@ -11,6 +11,10 @@ export default class ListaTareas {
     public getHead():NodeTarea{
         return this.head
     }
+    
+    public setHead(value: NodeTarea){
+        this.head = value;
+    }
 
     public push(value: Tarea): NodeTarea {
         const node = new NodeTarea(value);

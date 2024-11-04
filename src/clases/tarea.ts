@@ -6,13 +6,13 @@ export default class Tarea {
     private titulo: string;
     private descripcion: string;
     private fechaVencimiento: Date;
-    private prioridad: string;
+    private prioridad: PRIORIDAD;
     private categoria: string;
     private etiqueta: string;
     private porcentaje: number;
     private estado: string;
 
-    constructor(titulo: string, descripcion: string, fechaVencimiento: Date, prioridad: string, categoria: string, etiqueta: string) {
+    constructor(titulo: string, descripcion: string, fechaVencimiento: Date, prioridad: PRIORIDAD, categoria: string, etiqueta: string) {
         this.id = Math.random();
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -52,11 +52,11 @@ export default class Tarea {
         this.fechaVencimiento = fechaVencimiento;
     }
 
-    public getPriority(): string {
+    public getPriority(): PRIORIDAD {
         return this.prioridad;
     }
 
-    public setPriority(prioridad: string): void {
+    public setPriority(prioridad: PRIORIDAD): void {
         this.prioridad = prioridad;
     }
 
