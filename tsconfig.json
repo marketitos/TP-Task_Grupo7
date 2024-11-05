@@ -12,7 +12,8 @@
     "strictNullChecks": true,
     "skipLibCheck": true,
     "useUnknownInCatchVariables": false,
-    "experimentalDecorators": true, 
+    "experimentalDecorators": true,
+    "declaration": true, 
     "types": [
       "node",
       "jest"
