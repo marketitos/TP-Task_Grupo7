@@ -3,7 +3,6 @@
 title Task-App
 
 class Tarea {
-    - id: number
     - titulo: string
     - descripcion: string
     - fechaVencimiento: Date
@@ -79,24 +78,27 @@ class BuscadorDeTareas {
 
 class OrdenadorDeTareas {
     + sortByTitle(list: ListaTareas): void
+    + insertOrderedTitle(list: ListaTareas, value: Tarea): void
     + sortByExpirationDate(list: ListaTareas): void
+    + insertOrderedExpirationDate(list: ListaTareas, value: Tarea): void
     + sortByPriority(list: ListaTareas): void
+    + insertOrderedPriority(list: ListaTareas, value: Tarea): void
 }
 
 interface SaveData {
-    + save(): void
+    + saveTareasIncompletas(listaTareas: ListaTareas): void
+    + saveTareasCompletas(listaTareas: ListaTareas): void
 }
 
 class SaveDataJSON implements SaveData {
-    + save(): void
 }
 
 interface LoadData {
-    + load(): void
+    + loadTareasIncompletas(): Promise<ListaTareas>;
+    + loadTareasCompletas(): Promise<ListaTareas>;
 }
 
 class LoadDataJSON implements LoadData {
-    + load(): void
 }
 
 Tarea --* NodeTarea
