@@ -1,7 +1,7 @@
-import EditadorDeTareas from "../src/clases/EditadorDeTareas";
-import ListaTareas from "../src/clases/listaTareas";
-import nodeTarea from "../src/clases/nodeTarea";
-import Tarea from "../src/clases/tarea";
+import {EditadorDeTareas} from "../src/clases/EditadorDeTareas";
+import {ListaTareas} from "../src/clases/listaTareas";
+import {NodeTarea} from "../src/clases/nodeTarea";
+import {Tarea} from "../src/clases/tarea";
 
 
 
@@ -10,7 +10,7 @@ describe('EditadorDeTareas TEST', () => {
     let tarea: Tarea;
     let editador: EditadorDeTareas;
     let Fecha :Date;
-    let tareaEditada:nodeTarea;
+    let tareaEditada:NodeTarea;
 
 
     beforeEach(() => {

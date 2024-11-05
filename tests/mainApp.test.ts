@@ -1,7 +1,7 @@
-import Tarea from "../src/clases/tarea";
-import ListaTareas from "../src/clases/listaTareas";
+import {Tarea} from "../src/clases/tarea";
+import {ListaTareas} from "../src/clases/listaTareas";
 import { PRIORIDAD } from "../src/enums/prioridad";
-import MainApp from "../src/clases/mainApp";
+import {MainApp} from "../src/clases/mainApp";
 
 describe('Tests de la clase mainApp', () => {    
 

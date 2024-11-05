@@ -1,7 +1,7 @@
 import {mock} from "jest-mock-extended";
-import ListaTareas from "../src/clases/listaTareas"
-import BuscadorDeTareas from "../src/clases/buscadorDeTareas"
-import Tarea from "../src/clases/tarea"
+import {ListaTareas} from "../src/clases/listaTareas"
+import {BuscadorDeTareas} from "../src/clases/buscadorDeTareas"
+import {Tarea} from "../src/clases/tarea"
 import { PRIORIDAD } from "../src/enums/prioridad";
 
 describe("Prueba del buscador de tareas", () =>{

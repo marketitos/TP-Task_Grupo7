@@ -1,6 +1,6 @@
-import ListaTareas from "../src/clases/listaTareas";
-import Tarea from "../src/clases/tarea";
-import OrdenadorDeTareas from "../src/clases/ordenadorDeTareas"
+import {ListaTareas} from "../src/clases/listaTareas";
+import {Tarea} from "../src/clases/tarea";
+import {OrdenadorDeTareas} from "../src/clases/ordenadorDeTareas"
 import { PRIORIDAD } from "../src/enums/prioridad";
 
 describe ("Prueba del Ordenador de Tareas", () =>{
