@@ -1,6 +1,9 @@
-import ListaTareas from "../clases/listaTareas";
+import { ListaTareas } from "../clases/listaTareas";
 
-export default interface LoadData {
+/**
+ * Firma de los metodos para cargar datos.
+ */
+export interface LoadData {
     loadTareasIncompletas(): Promise<ListaTareas>;
     loadTareasCompletas(): Promise<ListaTareas>;
 }

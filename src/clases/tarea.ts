@@ -1,8 +1,10 @@
 import { ESTADO } from "../enums/estado";
 import { PRIORIDAD } from "../enums/prioridad";
 
-export default class Tarea {
-    private id: number;
+/**
+ * Clase tarea, contiene todas las propiedades necesarias para simular una tareaa.
+ */
+export class Tarea {
     private titulo: string;
     private descripcion: string;
     private fechaVencimiento: Date;
@@ -12,8 +14,16 @@ export default class Tarea {
     private porcentaje: number;
     private estado: string;
 
+    /**
+     * Constructor de la clase Tarea.
+     * @param titulo el titulo de la tarea.
+     * @param descripcion la descripción de la tarea.
+     * @param fechaVencimiento la fecha de expiración de la tarea.
+     * @param prioridad la prioridad de la tarea.
+     * @param categoria la categoria de la tarea.
+     * @param etiqueta el tag de la tarea.
+     */
     constructor(titulo: string, descripcion: string, fechaVencimiento: Date, prioridad: PRIORIDAD, categoria: string, etiqueta: string) {
-        this.id = Math.random();
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fechaVencimiento = fechaVencimiento;
@@ -24,70 +34,130 @@ export default class Tarea {
         this.estado = ESTADO.INCOMPLETA;
     }
 
-    public getId(): number {
-        return this.id;
-    }
-
+    /**
+     * Devuelve el titulo de la tarea.
+     * @returns 
+     */
     public getTitle(): string {
         return this.titulo;
     }
 
+    /**
+     * Establece el titulo de la tarea.
+     * @param titulo titulo a establecer.
+     */
     public setTitle(titulo: string): void {
         this.titulo = titulo;
     }
 
+    /**
+     * Devuelve la descripción de la tarea.
+     * @returns 
+     */
     public getDescription(): string {
         return this.descripcion;
     }
 
+    /**
+     * Establece la descripción de la tarea.
+     * @param descripcion descripción a establecer.
+     */
     public setDescription(descripcion: string): void {
         this.descripcion = descripcion;
     }
 
+    /**
+     * Devuelve la fecha de expiración de la tarea.
+     * @returns 
+     */
     public getExpirationDate(): Date {
         return this.fechaVencimiento;
     }
 
+    /**
+     * Establece la fecha de expiración de la tarea.
+     * @param fechaVencimiento fecha de expiración a establecer.
+     */
     public setExpirationDate(fechaVencimiento: Date): void {
         this.fechaVencimiento = fechaVencimiento;
     }
 
+    /**
+     * Devuelve la prioridad de la tarea.
+     * @returns 
+     */
     public getPriority(): PRIORIDAD {
         return this.prioridad;
     }
 
+    /**
+     * Establece la prioridad de la tarea.
+     * @param prioridad prioridad a establecer.
+     */
     public setPriority(prioridad: PRIORIDAD): void {
         this.prioridad = prioridad;
     }
 
+    /**
+     * Devuelve la categoria de la tarea.
+     * @returns 
+     */
     public getCategory(): string {
         return this.categoria;
     }
 
+    /**
+     * Establece la categoria de la tarea.
+     * @param categoria categoria a establecer.
+     */
     public setCategory(categoria: string): void {
         this.categoria = categoria;
     }
 
+    /**
+     * Devuelve el tag de la tarea.
+     * @returns 
+     */
     public getTag(): string {
         return this.etiqueta;
     }
 
+    /**
+     * Establece el tag de la tarea.
+     * @param etiqueta tag a establecer.
+     */
     public setTag(etiqueta: string): void {
         this.etiqueta = etiqueta;
     }
 
+    /**
+     * Devuelve el porcentaje de avance de la tarea.'
+     * @returns 
+     */
     public getPercentage(): number {
         return this.porcentaje;
     }
 
+    /**
+     * Establece el porcentaje de avance de la tarea.
+     * @param porcentaje porcentaje a establecer.
+     */
     public setPercentage(porcentaje: number): void {
         this.porcentaje = porcentaje;
     }
 
+    /**
+     * Devuelve el estado de la tarea.
+     * @returns 
+     */
     public getState(): string {
         return this.estado;
     }
 
+    /**
+     * Establece el estado de la tarea.
+     * @param estado estado a establecer.
+     */
     public setState(estado: string): void {
         this.estado = estado;
     }
