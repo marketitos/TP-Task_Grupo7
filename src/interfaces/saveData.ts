@@ -1,9 +1,9 @@
-import { ListaTareas } from "../clases/listaTareas";
+import { Tarea } from "../clases/tarea";
 
 /**
  * Firma de los metodos para guardar datos.
  */
 export interface SaveData {
-    saveTareasIncompletas(listaTareas: ListaTareas): void;
-    saveTareasCompletas(listaTareas: ListaTareas): void;
+    saveTareaIncompleta(tarea: Tarea): void;
+    saveTareaCompleta(tarea: Tarea): void;
 }

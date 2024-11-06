@@ -1,31 +1,31 @@
 import { SaveData } from "../../interfaces/saveData";
 import { CustomFileClass } from "stdio";
 import path from "path";
-import { ListaTareas } from "../listaTareas";
+import { Tarea } from "../tarea";
 
 /**
- * Clase que permite guardar listas de tareas en formato JSON.
+ * Clase que permite guardar tareas en formato JSON.
  */
 export class SaveDataJSON implements SaveData {
     /**
-     * Guarda una lista de tareas en el archivo 'tareasIncompletas.json'.
-     * @param listaTareas lista a guardar.
+     * Guarda una tarea en el archivo 'tareasIncompletas.json'.
+     * @param tarea tarea a guardar.
      */
-    public saveTareasIncompletas(listaTareas: ListaTareas): void {
+    public saveTareaIncompleta(tarea: Tarea): void {
         const file: CustomFileClass = new CustomFileClass();
-        file.open(path.resolve("tareasIncompletas.json"), "w");
-        file.writeToFile(JSON.stringify(listaTareas));
+        file.open(path.resolve("tareasIncompletas.json"), "a");
+        file.writeToFile(JSON.stringify(tarea));
         file.close();
     };
 
     /**
-     * Guarda una lista de tareas en el archivo 'tareasCompletas.json'.
-     * @param listaTareas lista a guardar.
+     * Guarda una tarea en el archivo 'tareasCompletas.json'.
+     * @param tarea tarea a guardar.
      */
-    public saveTareasCompletas(listaTareas: ListaTareas): void {
+    public saveTareaCompleta(tarea: Tarea): void {
         const file: CustomFileClass = new CustomFileClass();
-        file.open(path.resolve("tareasCompletas.json"), "w");
-        file.writeToFile(JSON.stringify(listaTareas));
+        file.open(path.resolve("tareasCompletas.json"), "a");
+        file.writeToFile(JSON.stringify(tarea));
         file.close();
     }
 }   
