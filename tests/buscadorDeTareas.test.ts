@@ -3,6 +3,7 @@ import {ListaTareas} from "../src/clases/listaTareas"
 import {BuscadorDeTareas} from "../src/clases/buscadorDeTareas"
 import {Tarea} from "../src/clases/tarea"
 import { PRIORIDAD } from "../src/enums/prioridad";
+import { errorTareaNoExiste } from "../src/excepciones/errorTareaNoExiste";
 
 describe("Prueba del buscador de tareas", () =>{
 
@@ -30,5 +31,14 @@ describe("Prueba del buscador de tareas", () =>{
     it("Prueba de buscar una tarea por fecha de vencimiento", () =>{
         let tareas = [tarea1, tarea2]
         expect(BuscadorDeTareas.searchByExpirationDate(lista, expdate)).toStrictEqual(tareas);
+    })
+
+    it("Prueba de tirar la exepcion", () =>{
+        /*try {
+            BuscadorDeTareas.searchByTitle(lista, "nada")
+        } catch (error) {
+            expect(error).toBeInstanceOf(errorTareaNoExiste)
+        }*/
+       expect(()=>BuscadorDeTareas.searchByTitle(lista, "nada")).toThrow(errorTareaNoExiste);
     })
 })
