@@ -7,7 +7,7 @@ import OrdenadorDeTareas from "./interfazOrdenador";
 /**
  * Clase para ordenar tareas dentro de una lista por prioridad.
  */
-export default class OrdenarPorTitulo implements OrdenadorDeTareas{
+export default class OrdenarPorPrioridad implements OrdenadorDeTareas{
     /**
      * Ordena una lista por la prioridad de las tareas.
      * @param list lista a ordenar.
