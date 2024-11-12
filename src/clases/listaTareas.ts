@@ -1,4 +1,9 @@
+import { ORDENADOR } from "../enums/ordenador";
 import { NodeTarea } from "./nodeTarea";
+import OrdenadorDeTareas from "./ordenadorDeTareas/interfazOrdenador";
+import OrdenarPorFechaDeVencimiento from "./ordenadorDeTareas/ordenarPorFechaDeVencimiento";
+import OrdenarPorPrioridad from "./ordenadorDeTareas/ordenarPorPrioridad";
+import OrdenarPorTitulo from "./ordenadorDeTareas/ordenarPorTitulo";
 import { Tarea } from "./tarea";
 
 /**
@@ -6,9 +11,11 @@ import { Tarea } from "./tarea";
  */
 export class ListaTareas {
     private head: NodeTarea;
+    private ordenador: OrdenadorDeTareas
     
     constructor() {
         this.head = undefined as unknown as NodeTarea;
+        this.ordenador = new OrdenarPorTitulo
     }
 
     /**
@@ -133,5 +140,25 @@ export class ListaTareas {
         while(this.head){
             this.removeFirst();
         }
+    }
+
+    /**
+     * Permite establecer el ordenador que va a ser usado por la lista.
+     * * @param estrategia estrategia a utilizar.
+     */
+    public setOrdenador(estrategia: ORDENADOR):void{
+        if(estrategia === ORDENADOR.TITULO){
+            this.ordenador = new OrdenarPorTitulo;
+        } else if (estrategia === ORDENADOR.FECHAVENCIMIENTO){
+            this.ordenador = new OrdenarPorFechaDeVencimiento;
+        } else if (estrategia === ORDENADOR.PRIORIDAD){
+            this.ordenador = new OrdenarPorPrioridad;
+        }
+    }
+    /**
+     * Permite ordenar la lista en base al ordenador establecido.
+     */
+    public sort():void{
+        this.ordenador.sort(this);
     }
 }   
