@@ -21,11 +21,11 @@ describe ("Prueba del Ordenador de Tareas", () =>{
         expdate1 = new Date(2024, 11, 5)
         expdate2 = new Date(2024, 11, 7)
         lista= new ListaTareas()
-        tarea1 = new Tarea("A", "Mi Descripcion", expdate1 , PRIORIDAD.ALTA, "micategoria", "mietiqueta")
-        tarea2 = new Tarea("B", "Mi Descripcion", expdate1 , PRIORIDAD.BAJA, "micategoria", "mietiqueta")
-        tarea3 = new Tarea("C", "Mi Descripcion", expdate2, PRIORIDAD.MEDIA, "micategoria", "mietiqueta")
-        tarea4 = new Tarea("D", "Mi Descripcion", expdate2, PRIORIDAD.BAJA, "micategoria", "mietiqueta")
-        tarea5 = new Tarea("E", "Mi Descripcion", expdate2, PRIORIDAD.ALTA, "micategoria", "mietiqueta")
+        tarea1 = new Tarea("A", "Mi Descripcion", expdate1 , PRIORIDAD.ALTA, "micategoria", ["mietiqueta"])
+        tarea2 = new Tarea("B", "Mi Descripcion", expdate1 , PRIORIDAD.BAJA, "micategoria", ["mietiqueta"])
+        tarea3 = new Tarea("C", "Mi Descripcion", expdate2, PRIORIDAD.MEDIA, "micategoria", ["mietiqueta"])
+        tarea4 = new Tarea("D", "Mi Descripcion", expdate2, PRIORIDAD.BAJA, "micategoria", ["mietiqueta"])
+        tarea5 = new Tarea("E", "Mi Descripcion", expdate2, PRIORIDAD.ALTA, "micategoria", ["mietiqueta"])
     })
     
     it ("Prueba de InsertOrdered: insertar en la Mitad", () =>{ 

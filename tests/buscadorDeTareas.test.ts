@@ -16,9 +16,9 @@ describe("Prueba del buscador de tareas", () =>{
     beforeEach(() =>{
         expdate = new Date(2024, 11, 5)
         lista= new ListaTareas()
-        tarea1 = new Tarea("Mi Titulo", "Mi Descripcion", expdate , PRIORIDAD.ALTA, "micategoria", "mietiqueta")
-        tarea2 = new Tarea("El Titulo", "Mi Descripcion", expdate , PRIORIDAD.BAJA, "micategoria", "mietiqueta")
-        tarea3 = new Tarea("Sin Titulo", "Mi Descripcion", new Date("2019-01-18"), PRIORIDAD.MEDIA, "micategoria", "mietiqueta")
+        tarea1 = new Tarea("Mi Titulo", "Mi Descripcion", expdate , PRIORIDAD.ALTA, "micategoria", ["mietiqueta"])
+        tarea2 = new Tarea("El Titulo", "Mi Descripcion", expdate , PRIORIDAD.BAJA, "micategoria", ["mietiqueta"])
+        tarea3 = new Tarea("Sin Titulo", "Mi Descripcion", new Date("2019-01-18"), PRIORIDAD.MEDIA, "micategoria", ["mietiqueta"])
         lista.push(tarea1);
         lista.push(tarea2);
         lista.push(tarea3);

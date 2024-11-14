@@ -18,10 +18,10 @@ describe ("Prueba de la Lista de Tareas", () =>{
         expdate1 = new Date(2024, 11, 20)
         expdate2 = new Date(2024, 11, 24)
         lista= new ListaTareas()
-        tarea1 = new Tarea("A", "Mi Descripcion", expdate1 , PRIORIDAD.ALTA, "micategoria", "mietiqueta")
-        tarea2 = new Tarea("B", "Mi Descripcion", expdate1 , PRIORIDAD.BAJA, "micategoria", "mietiqueta")
-        tarea3 = new Tarea("C", "Mi Descripcion", expdate2, PRIORIDAD.MEDIA, "micategoria", "mietiqueta")
-        tarea4 = new Tarea("D", "Mi Descripcion", expdate2, PRIORIDAD.BAJA, "micategoria", "mietiqueta")
+        tarea1 = new Tarea("A", "Mi Descripcion", expdate1 , PRIORIDAD.ALTA, "micategoria", ["mietiqueta"])
+        tarea2 = new Tarea("B", "Mi Descripcion", expdate1 , PRIORIDAD.BAJA, "micategoria", ["mietiqueta"])
+        tarea3 = new Tarea("C", "Mi Descripcion", expdate2, PRIORIDAD.MEDIA, "micategoria", ["mietiqueta"])
+        tarea4 = new Tarea("D", "Mi Descripcion", expdate2, PRIORIDAD.BAJA, "micategoria", ["mietiqueta"])
     })
 
     it ("Prueba de la lista para ordenarse usando el metodo sort dentro de la misma lista: Ordenar por Titulo", () =>{

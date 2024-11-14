@@ -10,7 +10,7 @@ export class Tarea {
     private fechaVencimiento: Date;
     private prioridad: PRIORIDAD;
     private categoria: string;
-    private etiqueta: string;
+    private etiquetas: string[];
     private porcentaje: number;
     private estado: string;
 
@@ -21,15 +21,15 @@ export class Tarea {
      * @param fechaVencimiento la fecha de expiración de la tarea.
      * @param prioridad la prioridad de la tarea.
      * @param categoria la categoria de la tarea.
-     * @param etiqueta el tag de la tarea.
+     * @param etiquetas los tags de la tarea.
      */
-    constructor(titulo: string, descripcion: string, fechaVencimiento: Date, prioridad: PRIORIDAD, categoria: string, etiqueta: string) {
+    constructor(titulo: string, descripcion: string, fechaVencimiento: Date, prioridad: PRIORIDAD, categoria: string, etiquetas: string[]) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fechaVencimiento = fechaVencimiento;
         this.prioridad = prioridad;
         this.categoria = categoria;
-        this.etiqueta = etiqueta;
+        this.etiquetas = etiquetas;
         this.porcentaje = 0;
         this.estado = ESTADO.INCOMPLETA;
     }
@@ -115,19 +115,27 @@ export class Tarea {
     }
 
     /**
-     * Devuelve el tag de la tarea.
+     * Devuelve los tags de la tarea.
      * @returns 
      */
-    public getTag(): string {
-        return this.etiqueta;
+    public getTags(): string[] {
+        return this.etiquetas;
     }
 
     /**
-     * Establece el tag de la tarea.
+     * Agreaga un tag a la tarea.
      * @param etiqueta tag a establecer.
      */
-    public setTag(etiqueta: string): void {
-        this.etiqueta = etiqueta;
+    public addTag(etiqueta: string): void {
+        this.etiquetas.push(etiqueta);
+    }
+
+    /**
+     * Elimina un tag de la tarea.
+     * @param etiqueta tag a eliminar.
+     */
+    public removeTag(etiqueta:string):void{
+        this.etiquetas.splice(this.etiquetas.indexOf(etiqueta), 1)
     }
 
     /**

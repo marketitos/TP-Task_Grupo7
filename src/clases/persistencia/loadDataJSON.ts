@@ -23,7 +23,7 @@ export class LoadDataJSON implements LoadData {
      */
     public async loadTareasIncompletas(): Promise<ListaTareas> {
         let listaTareasIncompletas: ListaTareas = new ListaTareas();
-        let tarea: Tarea = new Tarea("a", "b", new Date(2024, 11, 5), PRIORIDAD.BAJA, "d", "e")
+        let tarea: Tarea = new Tarea("a", "b", new Date(2024, 11, 5), PRIORIDAD.BAJA, "d", ["e"])
         const file: CustomFileClass = new CustomFileClass();
         file.open(path.resolve("tareasIncompletas.json"), "r");
         let jsonString = "";
@@ -45,7 +45,7 @@ export class LoadDataJSON implements LoadData {
      */
     public async loadTareasCompletas(): Promise<ListaTareas> {
         let listaTareasIncompletas: ListaTareas = new ListaTareas();
-        let tarea: Tarea = new Tarea("a", "b", new Date(2024, 11, 5), PRIORIDAD.BAJA, "d", "e")
+        let tarea: Tarea = new Tarea("a", "b", new Date(2024, 11, 5), PRIORIDAD.BAJA, "d", ["e"])
         const file: CustomFileClass = new CustomFileClass();
         file.open(path.resolve("tareasCompletas.json"), "r");
         let jsonString = "";
