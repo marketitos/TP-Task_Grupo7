@@ -16,7 +16,7 @@ describe('EditadorDeTareas TEST', () => {
     beforeEach(() => {
         listaTareas = new ListaTareas();
         Fecha = new Date("2005-01-28");
-        tarea = new Tarea("Ir al parque", "ir en bici",Fecha,0, "Pasear", "Temprano");
+        tarea = new Tarea("Ir al parque", "ir en bici",Fecha,0, "Pasear", ["Temprano"]);
         editador = new EditadorDeTareas();
         listaTareas.push(tarea);
     });
@@ -61,12 +61,12 @@ describe('EditadorDeTareas TEST', () => {
         expect(tareaEditada.value.getCategory()).toBe(nuevaCategoria);
     });
 
-    test('Editar Tag de tarea existente', () => {
+    test('Agregar un Tag a una tarea existente', () => {
         let nuevoTag: string;
         nuevoTag="Tecnologica";
-        editador.editTag(listaTareas,tarea,nuevoTag)
+        editador.addTag(listaTareas,tarea,nuevoTag)
         tareaEditada = listaTareas.search(tarea);
-        expect(tareaEditada.value.getTag()).toBe(nuevoTag);
+        expect(tareaEditada.value.getTags()[1]).toBe(nuevoTag);
     });
 
     test('Editar Percentage de tarea existente', () => {

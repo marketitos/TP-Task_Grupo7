@@ -12,7 +12,7 @@ describe('Tests de la clase mainApp', () => {
     beforeEach(() => {
         mainApp = new MainApp();
         expDate = new Date(2024, 10, 31);
-        tarea = new Tarea("Prueba", "Descripcion", expDate, PRIORIDAD.BAJA, "Categoria", "Tag")
+        tarea = new Tarea("Prueba", "Descripcion", expDate, PRIORIDAD.BAJA, "Categoria", ["Tag"])
     })
 
     test('Añadir tarea a la lista de tareas.', () => {
