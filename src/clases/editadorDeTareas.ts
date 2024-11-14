@@ -85,17 +85,32 @@ export class EditadorDeTareas{
     }
 
     /**
-     * Edita el tag de una tarea especifica que se encuentra dentro de una lista especificada.
+     * Agrega un tag a una tarea especifica que se encuentra dentro de una lista especificada.
      * @param list lista en donde se encuentra la tarea a editar.
      * @param task tarea a editar.
-     * @param tag nuevo tag de la tarea.
+     * @param tag tag a agregar.
      */
-    public editTag(list:ListaTareas, task:Tarea, tag:string){
+    public addTag(list:ListaTareas, task:Tarea, tag:string){
         let listTarea: NodeTarea;
         listTarea = list.search(task);
         
         if(listTarea !== null){
-            listTarea.value.setTag(tag);
+            listTarea.value.addTag(tag);
+        }
+    }
+
+    /**
+     * Elimina un tag de una tarea especifica que se encuentra dentro de una lista especificada.
+     * @param list lista en donde se encuentra la tarea a editar.
+     * @param task tarea a editar.
+     * @param tag tag a eliminar.
+     */
+    public removeTag(list:ListaTareas, task:Tarea, tag:string){
+        let listTarea: NodeTarea;
+        listTarea = list.search(task);
+        
+        if(listTarea !== null){
+            listTarea.value.removeTag(tag);
         }
     }
 
