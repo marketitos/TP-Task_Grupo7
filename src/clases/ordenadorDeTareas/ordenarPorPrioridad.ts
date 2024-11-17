@@ -1,13 +1,13 @@
 import { ListaTareas } from "../listaTareas";
 import { NodeTarea } from "../nodeTarea";
 import { Tarea } from "../tarea";
-import OrdenadorDeTareas from "./interfazOrdenador";
+import { OrdenadorDeTareas } from "./interfazOrdenador";
 
 
 /**
  * Clase para ordenar tareas dentro de una lista por prioridad.
  */
-export default class OrdenarPorPrioridad implements OrdenadorDeTareas{
+export class OrdenarPorPrioridad implements OrdenadorDeTareas{
     /**
      * Ordena una lista por la prioridad de las tareas.
      * @param list lista a ordenar.
@@ -32,7 +32,7 @@ export default class OrdenarPorPrioridad implements OrdenadorDeTareas{
         const node = new NodeTarea(value);
         let headAux = list.getHead();
         let previous:NodeTarea = undefined as unknown as NodeTarea;
-        while(headAux && headAux.value.getPriority() > value.getPriority()) {
+        while(headAux && headAux.value.getPriority() < value.getPriority()) {
             previous = headAux;
             headAux = headAux.next;
         }

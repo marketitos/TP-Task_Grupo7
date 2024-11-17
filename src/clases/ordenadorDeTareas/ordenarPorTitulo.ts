@@ -1,12 +1,12 @@
 import { ListaTareas } from "../listaTareas";
 import { NodeTarea } from "../nodeTarea";
 import { Tarea } from "../tarea";
-import OrdenadorDeTareas from "./interfazOrdenador";
+import { OrdenadorDeTareas } from "./interfazOrdenador";
 
 /**
  * Clase para ordenar tareas dentro de una lista por orden alfabetico.
  */
-export default class OrdenarPorTitulo implements OrdenadorDeTareas{
+export class OrdenarPorTitulo implements OrdenadorDeTareas{
     /**
      * Ordena una lista por el orden alfabetico de las tareas.
      * @param list lista a ordenar.

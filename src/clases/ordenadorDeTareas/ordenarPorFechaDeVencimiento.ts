@@ -1,13 +1,13 @@
 import { ListaTareas } from "../listaTareas";
 import { NodeTarea } from "../nodeTarea";
 import { Tarea } from "../tarea";
-import OrdenadorDeTareas from "./interfazOrdenador";
+import { OrdenadorDeTareas } from "./interfazOrdenador";
 
 
 /**
  * Clase para ordenar tareas dentro de una lista por fecha de vencimiento.
  */
-export default class OrdenarPorFechaDeVencimiento implements OrdenadorDeTareas{
+export class OrdenarPorFechaDeVencimiento implements OrdenadorDeTareas{
     /**
      * Ordena una lista por la fecha de expiración de las tareas.
      * @param list lista a ordenar.
