@@ -4,9 +4,10 @@ import { ListaTareas } from "../src/clases/listaTareas";
 import { NodeTarea } from "../src/clases/nodeTarea";
 import { Tarea } from "../src/clases/tarea";
 import { PRIORIDAD } from "../src/enums/prioridad";
+import { ESTADO } from "../src/enums/estado";
 
 describe("Tests unitarios para la clase EditadorDeTareas", () => {
-    
+
     let listaTareasMock: ReturnType<typeof mock<ListaTareas>>;
     let tareaMock: ReturnType<typeof mock<Tarea>>;
     let nodeTareaMock: ReturnType<typeof mock<NodeTarea>>;
@@ -16,19 +17,19 @@ describe("Tests unitarios para la clase EditadorDeTareas", () => {
         listaTareasMock = mock<ListaTareas>();
         tareaMock = mock<Tarea>();
         nodeTareaMock = mock<NodeTarea>();
-    
+
         let valueMock = tareaMock;
         Object.defineProperty(nodeTareaMock, "value", {
-          get: () => valueMock,
-          set: (newValue) => {
-            valueMock = newValue;
-          },
+            get: () => valueMock,
+            set: (newValue) => {
+                valueMock = newValue;
+            },
         });
-    
+
         listaTareasMock.search.mockReturnValue(nodeTareaMock);
-        
+
         editador = new EditadorDeTareas();
-      });
+    });
 
     test("Editar el título de una tarea existente", () => {
         tareaMock.getTitle.mockReturnValue("Titulo antiguo");
@@ -49,7 +50,7 @@ describe("Tests unitarios para la clase EditadorDeTareas", () => {
         editador.editDescription(listaTareasMock, tareaMock, "Nueva descripcion")
         expect(tareaMock.getDescription()).toBe("Nueva descripcion");
     });
-    
+
     test('Editar fecha de expiracion de tarea existente', () => {
         const fechaMock = new Date("2024-11-15");
         tareaMock.getExpirationDate.mockReturnValue(fechaMock);
@@ -110,6 +111,20 @@ describe("Tests unitarios para la clase EditadorDeTareas", () => {
 
         editador.editPercentage(listaTareasMock, tareaMock, 99);
         expect(tareaMock.getPercentage()).toBe(99);
+    });
+
+    test('Editar Percentage de tarea existente a 100', () => {
+        tareaMock.getPercentage.mockReturnValue(99);
+        tareaMock.setPercentage.mockImplementation((newPercentage) => {
+            tareaMock.getPercentage.mockReturnValue(newPercentage);
+            if (newPercentage === 100) {
+                tareaMock.getState.mockReturnValue(ESTADO.COMPLETA);
+            }
+        });
+
+        editador.editPercentage(listaTareasMock, tareaMock, 100);
+        expect(tareaMock.getPercentage()).toBe(100);
+        expect(tareaMock.getState()).toBe(ESTADO.COMPLETA);
     });
 
 });
