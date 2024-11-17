@@ -1,3 +1,4 @@
+import { ESTADO } from "../enums/estado";
 import { ListaTareas } from "./listaTareas";
 import { NodeTarea } from "./nodeTarea";
 import { Tarea } from "./tarea";
@@ -126,6 +127,9 @@ export class EditadorDeTareas{
         
         if(listTarea !== null){
             listTarea.value.setPercentage(percentage);
+            if (percentage === 100) {
+                listTarea.value.setState(ESTADO.COMPLETA);
+            }
         }
     } 
 }
