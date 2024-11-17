@@ -6,23 +6,31 @@ import { Tarea } from "./tarea";
  * Clase para buscar tareas dentro de una lista utilizando ciertos parametros. 
  */
 export class BuscadorDeTareas{
+    constructor(){
+    }
+    
     /**
      * Busca una tarea dentro de una lista basandose en el titulo especificado y la devuelve.
      * @param list lista en donde buscar la tarea.
      * @param title titulo de la tarea a buscar.
      * @returns 
      */
-    public static searchByTitle(list:ListaTareas, title:string):Tarea{
-        let headAux = list.getHead()
-        
-        while (headAux.value.getTitle() != title && headAux.next){
-            headAux = headAux.next;
+    public searchByTitle(list: ListaTareas, title: string): Tarea {
+        let headAux = list.getHead();
+      
+        if (!headAux) {
+          throw new errorTareaNoExiste("La lista está vacía o no existe.");
         }
-        if (headAux.value.getTitle() != title){
-            throw new errorTareaNoExiste("El parametro proveeido no se encuentra en la lista");
+      
+        while (headAux) {
+          if (headAux.value && headAux.value.getTitle() === title) {
+            return headAux.value;
+          }
+          headAux = headAux.next;
         }
-        return headAux.value;
-    }
+      
+        throw new errorTareaNoExiste("El parámetro provisto no se encuentra en la lista");
+      }
 
     /**
      * Busca tareas dentro de una lista basandose en la fecha de expiración especificada y las devuelve en un array de tareas.
@@ -30,20 +38,26 @@ export class BuscadorDeTareas{
      * @param expirationDate fecha de expiración de las tareas a buscar.
      * @returns 
      */
-    public static searchByExpirationDate(list: ListaTareas, expirationDate: Date): Tarea[]{
+    public searchByExpirationDate(list: ListaTareas, expirationDate: Date): Tarea[]{
         let headAux = list.getHead()
         let tareas: Tarea[];
         tareas = [];
+
+        if (!headAux) {
+            throw new errorTareaNoExiste("La lista está vacía o no existe.");
+        }
         
-        while (headAux.next){
-            if (headAux.value.getExpirationDate()===expirationDate){
+        while (headAux){
+            if (headAux.value && headAux.value.getExpirationDate()===expirationDate){
                tareas.push(headAux.value); 
             }
             headAux = headAux.next;
         }
+        
         if (tareas.length===0){
             throw new errorTareaNoExiste("El parametro proveeido no existe en la lista");
         }
+        
         return tareas;
     }
 }

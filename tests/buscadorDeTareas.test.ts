@@ -2,43 +2,67 @@ import {mock} from "jest-mock-extended";
 import {ListaTareas} from "../src/clases/listaTareas"
 import {BuscadorDeTareas} from "../src/clases/buscadorDeTareas"
 import {Tarea} from "../src/clases/tarea"
-import { PRIORIDAD } from "../src/enums/prioridad";
 import { errorTareaNoExiste } from "../src/excepciones/errorTareaNoExiste";
+import { NodeTarea } from "../src/clases/nodeTarea";
 
-describe("Prueba del buscador de tareas", () =>{
 
-    let lista: ListaTareas;
-    let tarea1: Tarea;
-    let tarea2: Tarea;
-    let tarea3: Tarea;
-    let expdate: Date;
+describe("Tests unitarios para la clase BuscadorDeTareas", () =>{
+
+    let listaTareasMock: ReturnType<typeof mock<ListaTareas>>;
+    let tareaMock1: ReturnType<typeof mock<Tarea>>;
+    let nodeTareaMock1: ReturnType<typeof mock<NodeTarea>>;
+    let tareaMock2: ReturnType<typeof mock<Tarea>>;
+    let nodeTareaMock2: ReturnType<typeof mock<NodeTarea>>;
+    let buscador: BuscadorDeTareas;
 
     beforeEach(() =>{
-        expdate = new Date(2024, 11, 5)
-        lista= new ListaTareas()
-        tarea1 = new Tarea("Mi Titulo", "Mi Descripcion", expdate , PRIORIDAD.ALTA, "micategoria", ["mietiqueta"])
-        tarea2 = new Tarea("El Titulo", "Mi Descripcion", expdate , PRIORIDAD.BAJA, "micategoria", ["mietiqueta"])
-        tarea3 = new Tarea("Sin Titulo", "Mi Descripcion", new Date("2019-01-18"), PRIORIDAD.MEDIA, "micategoria", ["mietiqueta"])
-        lista.push(tarea1);
-        lista.push(tarea2);
-        lista.push(tarea3);
+        listaTareasMock = mock<ListaTareas>();
+        tareaMock1 = mock<Tarea>();
+        nodeTareaMock1 = mock<NodeTarea>();
+        tareaMock2 = mock<Tarea>();
+        nodeTareaMock2 = mock<NodeTarea>();
+
+        let valueMock1 = tareaMock1;
+        Object.defineProperty(nodeTareaMock1, "value", {
+          get: () => valueMock1,
+          set: (newValue) => {
+            valueMock1 = newValue;
+          },
+        });
+
+        let valueMock2 = tareaMock2;
+        Object.defineProperty(nodeTareaMock2, "value", {
+          get: () => valueMock2,
+          set: (newValue) => {
+            valueMock2 = newValue;
+          },
+        });
+        
+        listaTareasMock.getHead.mockReturnValue(nodeTareaMock1);
+        buscador = new BuscadorDeTareas;
     })
 
-    it("Prueba de buscar una tarea por titulo", () => {
-        expect(BuscadorDeTareas.searchByTitle(lista, "El Titulo")).toBe(tarea2)
+    test("Prueba de buscar una tarea por titulo", () => {
+        tareaMock1.getTitle.mockReturnValue("Tarea 1");
+        tareaMock2.getTitle.mockReturnValue("Tarea 2");
+        expect(buscador.searchByTitle(listaTareasMock, "Tarea 1")).toBe(tareaMock1);
     })
 
-    it("Prueba de buscar una tarea por fecha de vencimiento", () =>{
-        let tareas = [tarea1, tarea2]
-        expect(BuscadorDeTareas.searchByExpirationDate(lista, expdate)).toStrictEqual(tareas);
+    test("Prueba de buscar una tarea por fecha de vencimiento", () =>{
+        const fechaMock1 = new Date("2024-11-15");
+        const fechaMock2 = new Date("2024-11-17");
+        tareaMock1.getExpirationDate.mockReturnValue(fechaMock1);
+        tareaMock2.getExpirationDate.mockReturnValue(fechaMock2);
+        expect(buscador.searchByExpirationDate(listaTareasMock, fechaMock1)).toStrictEqual([tareaMock1]);
     })
 
-    it("Prueba de tirar la exepcion", () =>{
-        /*try {
-            BuscadorDeTareas.searchByTitle(lista, "nada")
+    test("Prueba de tirar la exepcion", () =>{
+        tareaMock1.getTitle.mockReturnValue("Tarea 1");
+        tareaMock2.getTitle.mockReturnValue("Tarea 2");
+        try {
+            buscador.searchByTitle(listaTareasMock, "Titulo invalido");
         } catch (error) {
-            expect(error).toBeInstanceOf(errorTareaNoExiste)
-        }*/
-       expect(()=>BuscadorDeTareas.searchByTitle(lista, "nada")).toThrow(errorTareaNoExiste);
+            expect(error).toBeInstanceOf(errorTareaNoExiste);
+        }
     })
 })
