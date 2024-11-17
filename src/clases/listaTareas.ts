@@ -1,9 +1,9 @@
 import { ORDENADOR } from "../enums/ordenador";
 import { NodeTarea } from "./nodeTarea";
-import OrdenadorDeTareas from "./ordenadorDeTareas/interfazOrdenador";
-import OrdenarPorFechaDeVencimiento from "./ordenadorDeTareas/ordenarPorFechaDeVencimiento";
-import OrdenarPorPrioridad from "./ordenadorDeTareas/ordenarPorPrioridad";
-import OrdenarPorTitulo from "./ordenadorDeTareas/ordenarPorTitulo";
+import { OrdenadorDeTareas } from "./ordenadorDeTareas/interfazOrdenador";
+import { OrdenarPorFechaDeVencimiento } from "./ordenadorDeTareas/ordenarPorFechaDeVencimiento";
+import { OrdenarPorPrioridad } from "./ordenadorDeTareas/ordenarPorPrioridad";
+import { OrdenarPorTitulo } from "./ordenadorDeTareas/ordenarPorTitulo";
 import { Tarea } from "./tarea";
 
 /**
