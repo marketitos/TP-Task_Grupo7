@@ -1,82 +1,105 @@
-import {EditadorDeTareas} from "../src/clases/EditadorDeTareas";
-import {ListaTareas} from "../src/clases/listaTareas";
-import {NodeTarea} from "../src/clases/nodeTarea";
-import {Tarea} from "../src/clases/tarea";
+import { mock } from "jest-mock-extended";
+import { EditadorDeTareas } from "../src/clases/EditadorDeTareas";
+import { ListaTareas } from "../src/clases/listaTareas";
+import { NodeTarea } from "../src/clases/nodeTarea";
+import { Tarea } from "../src/clases/tarea";
+import { PRIORIDAD } from "../src/enums/prioridad";
 
-
-
-describe('EditadorDeTareas TEST', () => {
-    let listaTareas: ListaTareas;
-    let tarea: Tarea;
+describe("Tests unitarios para la clase EditadorDeTareas", () => {
+    
+    let listaTareasMock: ReturnType<typeof mock<ListaTareas>>;
+    let tareaMock: ReturnType<typeof mock<Tarea>>;
+    let nodeTareaMock: ReturnType<typeof mock<NodeTarea>>;
     let editador: EditadorDeTareas;
-    let Fecha :Date;
-    let tareaEditada:NodeTarea;
-
 
     beforeEach(() => {
-        listaTareas = new ListaTareas();
-        Fecha = new Date("2005-01-28");
-        tarea = new Tarea("Ir al parque", "ir en bici",Fecha,0, "Pasear", ["Temprano"]);
-        editador = new EditadorDeTareas();
-        listaTareas.push(tarea);
-    });
-
-    test('Editar el título de una tarea existente', () => {
-        let nuevoTitulo: string;
-        nuevoTitulo="Ir a fumar"
-        editador.editTitle(listaTareas,tarea, nuevoTitulo);
-        tareaEditada = listaTareas.search(tarea);
-        expect(tareaEditada.value.getTitle()).toBe(nuevoTitulo);
+        listaTareasMock = mock<ListaTareas>();
+        tareaMock = mock<Tarea>();
+        nodeTareaMock = mock<NodeTarea>();
+    
+        let valueMock = tareaMock;
+        Object.defineProperty(nodeTareaMock, "value", {
+          get: () => valueMock,
+          set: (newValue) => {
+            valueMock = newValue;
+          },
+        });
+    
+        listaTareasMock.search.mockReturnValue(nodeTareaMock);
         
+        editador = new EditadorDeTareas();
+      });
+
+    test("Editar el título de una tarea existente", () => {
+        tareaMock.getTitle.mockReturnValue("Titulo antiguo");
+        tareaMock.setTitle.mockImplementation((newTitle) => {
+            tareaMock.getTitle.mockReturnValue(newTitle);
+        });
+
+        editador.editTitle(listaTareasMock, tareaMock, "Nuevo titulo");
+        expect(tareaMock.getTitle()).toBe("Nuevo titulo");
     });
 
     test('Editar el descripcion de tarea existente', () => {
-        let nuevaDesc: string;
-        nuevaDesc="Ir Caminando";
-        editador.editDescription(listaTareas,tarea,nuevaDesc);
-        tareaEditada = listaTareas.search(tarea);
-        expect(tareaEditada.value.getDescription()).toBe(nuevaDesc);
+        tareaMock.getDescription.mockReturnValue("Descripcion antigua");
+        tareaMock.setDescription.mockImplementation((newDescription) => {
+            tareaMock.getDescription.mockReturnValue(newDescription);
+        });
+
+        editador.editDescription(listaTareasMock, tareaMock, "Nueva descripcion")
+        expect(tareaMock.getDescription()).toBe("Nueva descripcion");
     });
+    
     test('Editar fecha de expiracion de tarea existente', () => {
-        let nuevaFecha: Date;
-        nuevaFecha=new Date("2007-01-28");
-        editador.editExpirationDate(listaTareas,tarea,nuevaFecha)
-        tareaEditada = listaTareas.search(tarea);
-        expect(tareaEditada.value.getExpirationDate()).toBe(nuevaFecha);
+        const fechaMock = new Date("2024-11-15");
+        tareaMock.getExpirationDate.mockReturnValue(fechaMock);
+        tareaMock.setExpirationDate.mockImplementation((newExpirationDate) => {
+            tareaMock.getExpirationDate.mockReturnValue(newExpirationDate);
+        });
+
+        const newFecha = new Date("2024-11-17");
+        editador.editExpirationDate(listaTareasMock, tareaMock, newFecha);
+        expect(tareaMock.getExpirationDate()).toBe(newFecha);
     });
 
     test('Editar prioridad de tarea existente', () => {
-        let nuevaPrio: number;
-        nuevaPrio=2;
-        editador.editPriority(listaTareas,tarea,nuevaPrio)
-        tareaEditada = listaTareas.search(tarea);
-        expect(tareaEditada.value.getPriority()).toBe(nuevaPrio);
+        tareaMock.getPriority.mockReturnValue(PRIORIDAD.BAJA);
+        tareaMock.setPriority.mockImplementation((newPriority) => {
+            tareaMock.getPriority.mockReturnValue(newPriority);
+        });
+
+        editador.editPriority(listaTareasMock, tareaMock, PRIORIDAD.MEDIA);
+        expect(tareaMock.getPriority()).toBe(PRIORIDAD.MEDIA);
     });
 
     test('Editar Categoria de tarea existente', () => {
-        let nuevaCategoria: string;
-        nuevaCategoria="Trabajo";
-        editador.editCategory(listaTareas,tarea,nuevaCategoria)
-        tareaEditada = listaTareas.search(tarea);
-        expect(tareaEditada.value.getCategory()).toBe(nuevaCategoria);
+        tareaMock.getCategory.mockReturnValue("Categoria antigua");
+        tareaMock.setCategory.mockImplementation((newCategory) => {
+            tareaMock.getCategory.mockReturnValue(newCategory);
+        });
+
+        editador.editCategory(listaTareasMock, tareaMock, "Categoria nueva");
+        expect(tareaMock.getCategory()).toBe("Categoria nueva");
     });
 
     test('Agregar un Tag a una tarea existente', () => {
-        let nuevoTag: string;
-        nuevoTag="Tecnologica";
-        editador.addTag(listaTareas,tarea,nuevoTag)
-        tareaEditada = listaTareas.search(tarea);
-        expect(tareaEditada.value.getTags()[1]).toBe(nuevoTag);
+        tareaMock.getTags.mockReturnValue(["Tag 1"]);
+        tareaMock.addTag.mockImplementation((newTag) => {
+            tareaMock.getTags.mockReturnValue(["Tag 1", newTag])
+        });
+
+        editador.addTag(listaTareasMock, tareaMock, "Tag 2");
+        expect(tareaMock.getTags()).toStrictEqual(["Tag 1", "Tag 2"]);
     });
 
     test('Editar Percentage de tarea existente', () => {
-        let nuevoPorcentaje: number;
-        nuevoPorcentaje=100;
-        editador.editPercentage(listaTareas,tarea,nuevoPorcentaje)
-        tareaEditada = listaTareas.search(tarea);
-        expect(tareaEditada.value.getPercentage()).toBe(nuevoPorcentaje);
+        tareaMock.getPercentage.mockReturnValue(50);
+        tareaMock.setPercentage.mockImplementation((newPercentage) => {
+            tareaMock.getPercentage.mockReturnValue(newPercentage);
+        });
+
+        editador.editPercentage(listaTareasMock, tareaMock, 99);
+        expect(tareaMock.getPercentage()).toBe(99);
     });
-
-
 
 });
