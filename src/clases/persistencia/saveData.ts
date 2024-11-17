@@ -1,4 +1,4 @@
-import { Tarea } from "../clases/tarea";
+import { Tarea } from "../tarea";
 
 /**
  * Firma de los metodos para guardar datos.

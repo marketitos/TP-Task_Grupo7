@@ -1,4 +1,4 @@
-import { ClearData } from "../../interfaces/clearData";
+import { ClearData } from "./clearData";
 import { CustomFileClass } from "stdio";
 import path from "path";
 

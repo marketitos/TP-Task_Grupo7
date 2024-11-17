@@ -1,9 +1,9 @@
-import { LoadData } from "../../interfaces/loadData";
 import { CustomFileClass } from "stdio";
 import path from "path";
 import { ListaTareas } from "../listaTareas";
 import { Tarea } from "../tarea";
 import { PRIORIDAD } from "../../enums/prioridad";
+import { LoadData } from "./loadData";
 
 function reviver(key: string, value: any) {
     if (key === "fechaVencimiento") {

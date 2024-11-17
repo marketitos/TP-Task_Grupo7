@@ -1,7 +1,7 @@
-import { SaveData } from "../../interfaces/saveData";
 import { CustomFileClass } from "stdio";
 import path from "path";
 import { Tarea } from "../tarea";
+import { SaveData } from "./saveData";
 
 /**
  * Clase que permite guardar tareas en formato JSON.

@@ -1,4 +1,4 @@
-import { ListaTareas } from "../clases/listaTareas";
+import { ListaTareas } from "../listaTareas";
 
 /**
  * Firma de los metodos para cargar datos.
