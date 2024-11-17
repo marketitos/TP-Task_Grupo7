@@ -92,6 +92,16 @@ describe("Tests unitarios para la clase EditadorDeTareas", () => {
         expect(tareaMock.getTags()).toStrictEqual(["Tag 1", "Tag 2"]);
     });
 
+    test("Remover un Tag a una tarea existente", () => {
+        tareaMock.getTags.mockReturnValue(["Tag 1", "Tag 2"]);
+        tareaMock.removeTag.mockImplementation(() => {
+            tareaMock.getTags.mockReturnValue(["Tag 1"])
+        });
+
+        editador.removeTag(listaTareasMock, tareaMock, "Tag 2");
+        expect(tareaMock.getTags()).toStrictEqual(["Tag 1"])
+    });
+
     test('Editar Percentage de tarea existente', () => {
         tareaMock.getPercentage.mockReturnValue(50);
         tareaMock.setPercentage.mockImplementation((newPercentage) => {
