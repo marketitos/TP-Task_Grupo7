@@ -3,6 +3,7 @@ import { Estadisticas } from "../src/clases/estadisticas";
 import { ListaTareas } from "../src/clases/listaTareas";
 import { NodeTarea } from "../src/clases/nodeTarea";
 import { Tarea } from "../src/clases/tarea";
+import { errorTareaNoExiste } from "../src/excepciones/errorTareaNoExiste";
 
 describe("Tests unitarios para la clase Estadisticas", () => {
     let estadisticas: Estadisticas;
@@ -17,6 +18,9 @@ describe("Tests unitarios para la clase Estadisticas", () => {
     let tareaMock4: ReturnType<typeof mock<Tarea>>;
     let nodeTareaMock4: ReturnType<typeof mock<NodeTarea>>;
 
+    let listaPendientesVacia: ReturnType<typeof mock<ListaTareas>>;
+    let listaCompletasVacia: ReturnType<typeof mock<ListaTareas>>;
+
     beforeEach(() => {
         estadisticas = new Estadisticas();
         listaTareasPendientesMock = mock<ListaTareas>();
@@ -29,6 +33,9 @@ describe("Tests unitarios para la clase Estadisticas", () => {
         tareaMock2 = mock<Tarea>();
         tareaMock3 = mock<Tarea>();
         tareaMock4 = mock<Tarea>();
+
+        listaPendientesVacia = mock<ListaTareas>();
+        listaCompletasVacia = mock<ListaTareas>();
 
         listaTareasPendientesMock.getHead.mockReturnValue(nodeTareaMock1);
         listaTareasCompletasMock.getHead.mockReturnValue(nodeTareaMock3);
@@ -65,9 +72,35 @@ describe("Tests unitarios para la clase Estadisticas", () => {
         expect(tasaDeFinalizacion).toBe(50);
     });
 
+    test("Atrapar error al intentar calcular la tasa de finalización si no hay tareas pendientes.", () => {
+        try {
+            const tasaDeFinalizacion = estadisticas.getTasaDeFinalizacion(listaPendientesVacia, listaTareasCompletasMock);
+            expect(tasaDeFinalizacion).toBe(50);
+        } catch (error) {
+            expect(error).toBeInstanceOf(errorTareaNoExiste);
+        }
+    });
+
+    test("Atrapar error al intentar calcular la tasa de finalización si no hay tareas completas.", () => {
+        try {
+            const tasaDeFinalizacion = estadisticas.getTasaDeFinalizacion(listaTareasPendientesMock, listaCompletasVacia);
+            expect(tasaDeFinalizacion).toBe(50);
+        } catch (error) {
+            expect(error).toBeInstanceOf(errorTareaNoExiste);
+        }
+    });
+
     test("Calcular promedio de porcentajes.", () => {
         const promedioPorcentajes = estadisticas.getPromedioPorcentajes(listaTareasPendientesMock);
         expect(promedioPorcentajes).toBe(25);
     });
 
+    test("Atrapar error al intentar calcular el promedio de porcentajes si no hay tareas pendientes.", () => {
+        try {
+            const promedioPorcentajes = estadisticas.getPromedioPorcentajes(listaPendientesVacia);
+            expect(promedioPorcentajes).toBe(25);
+        } catch (error) {
+            expect(error).toBeInstanceOf(errorTareaNoExiste);
+        }
+    });
 });

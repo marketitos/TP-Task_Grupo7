@@ -51,27 +51,7 @@ describe("Tests unitarios para la clase BuscadorDeTareas", () => {
     expect(buscador.searchByTitle(listaTareasMock, "Tarea 1")).toBe(tareaMock1);
   })
 
-  test("Prueba de buscar una tarea por fecha de vencimiento", () => {
-    const fechaMock1 = new Date("2024-11-15");
-    const fechaMock2 = new Date("2024-11-17");
-    tareaMock1.getExpirationDate.mockReturnValue(fechaMock1);
-    tareaMock2.getExpirationDate.mockReturnValue(fechaMock2);
-    expect(buscador.searchByExpirationDate(listaTareasMock, fechaMock1)).toStrictEqual([tareaMock1]);
-  })
-
-  test("Prueba de buscar una tarea por categoria", () => {
-    tareaMock1.getCategory.mockReturnValue("a");
-    tareaMock2.getCategory.mockReturnValue("b");
-    expect(buscador.searchByCategory(listaTareasMock, "a")).toStrictEqual([tareaMock1]);
-  })
-
-  test("Prueba de buscar una tarea por tag", () => {
-    tareaMock1.getTags.mockReturnValue(["a", "b"]);
-    tareaMock2.getTags.mockReturnValue(["c", "d"]);
-    expect(buscador.searchByTag(listaTareasMock, "c")).toStrictEqual([tareaMock2])
-  })
-
-  test("Prueba de tirar la exepcion", () => {
+  test("Prueba de buscar una tarea con titulo inexistente", () => {
     tareaMock1.getTitle.mockReturnValue("Tarea 1");
     tareaMock2.getTitle.mockReturnValue("Tarea 2");
     try {
@@ -80,4 +60,59 @@ describe("Tests unitarios para la clase BuscadorDeTareas", () => {
       expect(error).toBeInstanceOf(errorTareaNoExiste);
     }
   })
+
+  test("Prueba de buscar una tarea por fecha de vencimiento", () => {
+    const fechaMock1 = new Date("2024-11-15");
+    const fechaMock2 = new Date("2024-11-17");
+    tareaMock1.getExpirationDate.mockReturnValue(fechaMock1);
+    tareaMock2.getExpirationDate.mockReturnValue(fechaMock2);
+    expect(buscador.searchByExpirationDate(listaTareasMock, fechaMock1)).toStrictEqual([tareaMock1]);
+  })
+
+  test("Prueba de buscar una tarea con fecha de vencimiento inexistente", () => {
+    const fechaMock1 = new Date("2024-11-15");
+    const fechaMock2 = new Date("2024-11-17");
+    const fechaMockInvalida = new Date("2023-11-17");
+    tareaMock1.getExpirationDate.mockReturnValue(fechaMock1);
+    tareaMock2.getExpirationDate.mockReturnValue(fechaMock2);
+    try {
+      buscador.searchByExpirationDate(listaTareasMock, fechaMockInvalida);
+    } catch (error) {
+      expect(error).toBeInstanceOf(errorTareaNoExiste);
+    }
+  })
+
+  test("Prueba de buscar una tarea por categoria", () => {
+    tareaMock1.getCategory.mockReturnValue("a");
+    tareaMock2.getCategory.mockReturnValue("b");
+    expect(buscador.searchByCategory(listaTareasMock, "a")).toStrictEqual([tareaMock1]);
+  })
+
+  test("Prueba de buscar una tarea con categoria inexistente", () => {
+    tareaMock1.getCategory.mockReturnValue("a");
+    tareaMock2.getCategory.mockReturnValue("b");
+    try {
+      buscador.searchByTitle(listaTareasMock, "h");
+    } catch (error) {
+      expect(error).toBeInstanceOf(errorTareaNoExiste);
+    }
+  })
+
+  test("Prueba de buscar una tarea por tag", () => {
+    tareaMock1.getTags.mockReturnValue(["a", "b"]);
+    tareaMock2.getTags.mockReturnValue(["c", "d"]);
+    expect(buscador.searchByTag(listaTareasMock, "c")).toStrictEqual([tareaMock2])
+  })
+
+  test("Prueba de buscar una tarea con tag inexistente", () => {
+    tareaMock1.getTags.mockReturnValue(["a", "b"]);
+    tareaMock2.getTags.mockReturnValue(["c", "d"]);
+    try {
+      buscador.searchByTag(listaTareasMock, "j");
+    } catch (error) {
+      expect(error).toBeInstanceOf(errorTareaNoExiste);
+    }
+  })
+
+  
 })
