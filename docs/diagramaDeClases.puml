@@ -8,7 +8,7 @@ class Tarea {
     - fechaVencimiento: Date
     - prioridad: string
     - categoria: string
-    - etiqueta: string
+    - etiquetas: string[]
     - porcentaje: number
     - estado: string
 
@@ -38,6 +38,7 @@ class NodeTarea {
 
 class ListaTareas {
     - head: NodeTarea
+    - ordenador: Ordenador
 
     + push(v: Tarea): NodeTarea
     + pop(): Tarea
@@ -55,7 +56,7 @@ class MainApp {
     - tareas: ListaTareas
     - tareasCompletas: ListaTareas
 
-    + addTask(title: string, desc: string, expDate: Date, prio: string, category: string, tag: string): void
+    + addTask(v: Tarea): void
     + removeTask(v: Tarea): Tarea
     + getTareasIncompletas(): ListaTareas
     + getTareasCompletas(): ListaTareas
@@ -67,47 +68,91 @@ class EditadorDeTareas {
     + editExpirationDate(list: ListaTareas, task: Tarea, expDate: Date): void
     + editPriority(list: ListaTareas, task: Tarea, priority: string): void
     + editCategory(list: ListaTareas, task: Tarea, category: string): void
-    + editTag(list: ListaTareas, task: Tarea, tag: string): void
+    + addTag(list: ListaTareas, task: Tarea, tag: string): void
+    + removeTag(list: ListaTareas, task: Tarea, tag: string): void
     + editPercentage(list: ListaTareas, task: Tarea, percentage: number): void
 }
 
 class BuscadorDeTareas {
-    + searchByTitle(title: string): Tarea
-    + searchByExpirationDate(expirationDate: Date): Tarea
+    + searchByTitle(list: ListaTareas, title: string): Tarea
+    + searchByExpirationDate(list: ListaTareas, expirationDate: Date): Tarea[]
+    + searchByCategory(list: ListaTareas, category: string): Tarea[]
+    + searchByTag(list: ListaTareas, tag: string): Tarea[]
 }
 
-class OrdenadorDeTareas {
-    + sortByTitle(list: ListaTareas): void
-    + insertOrderedTitle(list: ListaTareas, value: Tarea): void
-    + sortByExpirationDate(list: ListaTareas): void
-    + insertOrderedExpirationDate(list: ListaTareas, value: Tarea): void
-    + sortByPriority(list: ListaTareas): void
-    + insertOrderedPriority(list: ListaTareas, value: Tarea): void
+interface Ordenador {
+    + sort(list: ListaTareas): void
+    + insertOrdered(list: ListaTareas, value: Tarea): void
+}
+
+class OrdenarPorTitulo implements Ordenador {
+    + sort(list: ListaTareas): void
+    + insertOrdered(list: ListaTareas, value: Tarea): void
+}
+
+class OrdenarPorFechaDeVencimiento implements Ordenador {
+    + sort(list: ListaTareas): void
+    + insertOrdered(list: ListaTareas, value: Tarea): void
+}
+
+class OrdenarPorPrioridad implements Ordenador {
+    + sort(list: ListaTareas): void
+    + insertOrdered(list: ListaTareas, value: Tarea): void
+}
+
+class OrdenarPorCategoria implements Ordenador {
+    + sort(list: ListaTareas): void
+    + insertOrdered(list: ListaTareas, value: Tarea): void
+}
+
+class OrdenarPorTag implements Ordenador {
+    + sort(list: ListaTareas): void
+    + insertOrdered(list: ListaTareas, value: Tarea): void
 }
 
 interface SaveData {
-    + saveTareasIncompletas(listaTareas: ListaTareas): void
-    + saveTareasCompletas(listaTareas: ListaTareas): void
+    + saveTareaIncompleta(tarea: Tarea): void
+    + saveTareaCompleta(tarea: Tarea): void
 }
 
 class SaveDataJSON implements SaveData {
+    + saveTareaIncompleta(tarea: Tarea): void
+    + saveTareaCompleta(tarea: Tarea): void
 }
 
 interface LoadData {
-    + loadTareasIncompletas(): Promise<ListaTareas>;
-    + loadTareasCompletas(): Promise<ListaTareas>;
+    + loadTareasIncompletas(): Promise<ListaTareas>
+    + loadTareasCompletas(): Promise<ListaTareas>
 }
 
 class LoadDataJSON implements LoadData {
+    + loadTareasIncompletas(): Promise<ListaTareas>
+    + loadTareasCompletas(): Promise<ListaTareas>
+}
+
+interface ClearData {
+    + clearTareasIncompletas(): void
+    + clearTareasCompletas(): void
+}
+
+class ClearDataJSON implements ClearData {
+    + clearTareasIncompletas(): void
+    + clearTareasCompletas(): void
+}
+
+class Estadisticas {
+    + getTasaDeFinalizacion(tareasPendientes: ListaTareas, tareasCompletas: ListaTareas): number
+    + getPromedioPorcentajes(tareasPendientes: ListaTareas): number
 }
 
 Tarea --* NodeTarea
 NodeTarea --* NodeTarea
 NodeTarea --* ListaTareas
 ListaTareas -r-* MainApp
-EditadorDeTareas -u-> ListaTareas
+EditadorDeTareas -r-> ListaTareas
 BuscadorDeTareas -u-> ListaTareas
-OrdenadorDeTareas -l-> ListaTareas
+Ordenador -l-* ListaTareas
+Estadisticas -u-> ListaTareas
 
 
 @enduml
