@@ -1,0 +1,17 @@
+@startuml Editar y Buscar una Tarea
+title Editar y Buscar una Tarea
+Cliente -> LoadDataJSON: Pedido de carga de los datos
+LoadDataJSON -> Cliente: Carga de los datos
+Cliente --> MainApp: Instanciar el MainApp
+Cliente --> EditadorDeTareas: Instanciar el editador de tareas
+Cliente --> BuscadorDeTareas: Instanciar el buscador de tareas
+Cliente -> MainApp: Pedido de la lista de tareas incompletas
+MainApp -> Cliente: Obtener la lista de tareas incompletas
+Cliente --> EditadorDeTareas: Editar la prioridad de una tarea especifica
+EditadorDeTareas --> ListaTareasIncompletas: Editar la prioridad de la tarea especificada
+Cliente -> BuscadorDeTareas: Buscar la tarea a la que se le edito la prioridad
+BuscadorDeTareas -> ListaTareasIncompletas: Buscar la tarea
+ListaTareasIncompletas -> BuscadorDeTareas: Devolver la tarea
+BuscadorDeTareas -> Cliente: Devuelve la tarea especificada
+Cliente --> SaveDataJson: Guardar los datos
+@enduml

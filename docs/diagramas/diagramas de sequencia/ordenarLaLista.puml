@@ -1,0 +1,13 @@
+@startuml Ordenar la Lista de Tareas Incompletas
+title Ordenar la Lista de Tareas Incompletas
+Cliente -> LoadDataJSON: Pedido de carga de los datos
+LoadDataJSON -> Cliente: Carga de los datos
+Cliente -> MainApp: Pedido de la lista de tareas incompletas
+MainApp -> Cliente: Obtener la lista de tareas incompletas
+Cliente --> ListaTareasIncompletas: Establecer el ordenador a ordenar por Categoria
+Cliente --> ListaTareasIncompletas: Ordenar
+ListaTareasIncompletas -> OrdenarPorPrioridad: Ordenar
+OrdenarPorPrioridad -> ListaTareasIncompletas: Establece la lista a una lista ordenada
+Cliente -> MainApp: Pedido de la lista de tareas incompletas, ordenada
+MainApp -> Cliente: Obtener la lista de tareas incompletas, ordenada
+@enduml
