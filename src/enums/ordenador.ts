@@ -14,4 +14,12 @@ export enum ORDENADOR {
      * Ordenador por Fecha de Vencimiento.
      */
     FECHAVENCIMIENTO = "Fecha de Vencimiento",
+    /**
+     * Ordenador por Categoria.
+     */
+    CATEGORIA = "Categoria",
+    /**
+     * Ordenador por Etiqueta.
+     */
+    ETIQUETA = "Etiqueta",
 }

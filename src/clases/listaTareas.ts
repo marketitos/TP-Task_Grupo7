@@ -1,8 +1,10 @@
 import { ORDENADOR } from "../enums/ordenador";
 import { NodeTarea } from "./nodeTarea";
 import { OrdenadorDeTareas } from "./ordenadorDeTareas/interfazOrdenador";
+import { OrdenarPorCategoria } from "./ordenadorDeTareas/ordenarPorCategoria";
 import { OrdenarPorFechaDeVencimiento } from "./ordenadorDeTareas/ordenarPorFechaDeVencimiento";
 import { OrdenarPorPrioridad } from "./ordenadorDeTareas/ordenarPorPrioridad";
+import { OrdenarPorTag } from "./ordenadorDeTareas/ordenarPorTag";
 import { OrdenarPorTitulo } from "./ordenadorDeTareas/ordenarPorTitulo";
 import { Tarea } from "./tarea";
 
@@ -153,6 +155,10 @@ export class ListaTareas {
             this.ordenador = new OrdenarPorFechaDeVencimiento;
         } else if (estrategia === ORDENADOR.PRIORIDAD){
             this.ordenador = new OrdenarPorPrioridad;
+        } else if (estrategia === ORDENADOR.CATEGORIA){
+            this.ordenador = new OrdenarPorCategoria;
+        } else if (estrategia === ORDENADOR.ETIQUETA){
+            this.ordenador = new OrdenarPorTag;
         }
     }
     /**
