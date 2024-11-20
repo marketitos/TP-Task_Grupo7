@@ -1,13 +1,34 @@
 @startuml Ordenar la Lista de Tareas Incompletas
 title Ordenar la Lista de Tareas Incompletas
-Cliente -> LoadDataJSON: Pedido de carga de los datos
-LoadDataJSON -> Cliente: Carga de los datos
-Cliente -> MainApp: Pedido de la lista de tareas incompletas
-MainApp -> Cliente: Obtener la lista de tareas incompletas
-Cliente --> ListaTareasIncompletas: Establecer el ordenador a ordenar por Categoria
-Cliente --> ListaTareasIncompletas: Ordenar
-ListaTareasIncompletas -> OrdenarPorPrioridad: Ordenar
-OrdenarPorPrioridad -> ListaTareasIncompletas: Establece la lista a una lista ordenada
-Cliente -> MainApp: Pedido de la lista de tareas incompletas, ordenada
-MainApp -> Cliente: Obtener la lista de tareas incompletas, ordenada
+actor Cliente
+entity MainApp
+entity ListaTareasIncompletas
+database LoadDataJSON
+entity OrdenarPorCategoria
+Cliente -> MainApp: getListaTareasIncompletas().setHead()
+activate MainApp #Green
+MainApp -> ListaTareasIncompletas: setHead()
+activate ListaTareasIncompletas #Red
+ListaTareasIncompletas -> LoadDataJSON: loadTareasIncompletas()
+activate LoadDataJSON #blue
+LoadDataJSON -> ListaTareasIncompletas: setHead(ListaTareasIncompletas.getHead())
+deactivate LoadDataJSON
+deactivate ListaTareasIncompletas
+deactivate MainApp
+Cliente -> MainApp: getListaTareasIncompletas()
+activate MainApp #Green
+return ListaTareasIncompletas
+Cliente->ListaTareasIncompletas: ListaTareasIncompletas.setOrdenador(ORDENADOR.CATEGORIA)
+activate ListaTareasIncompletas #Red
+deactivate ListaTareasIncompletas
+Cliente->ListaTareasIncompletas: ListaTareasIncompletas.Ordenar()
+activate ListaTareasIncompletas #Red
+ListaTareasIncompletas->OrdenarPorCategoria: sort()
+activate OrdenarPorCategoria #HotPink
+return //Lista Ordenada
+deactivate OrdenarPorCategoria
+Deactivate ListaTareasIncompletas
+Cliente -> MainApp: getListaTareasIncompletas()
+activate MainApp #Green
+return ListaTareasIncompletas
 @enduml
